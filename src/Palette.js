@@ -18,4 +18,6 @@ class Palette extends Component {
   }
 }
 
+// Test the github
+
 export default Palette;

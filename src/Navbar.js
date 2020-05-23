@@ -48,6 +48,7 @@ class Navbar extends Component {
         {/* Slider */}
         <div className="slider-container">
           <span>Level: {level}</span>
+
           <div className="slider">
             <Slider
               defaultValue={level}
@@ -55,6 +56,7 @@ class Navbar extends Component {
               onAfterChange={changeLevel}
             />
           </div>
+          
         </div>
 
         {/* Selector */}

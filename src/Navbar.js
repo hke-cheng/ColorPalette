@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Slider, { Range } from "rc-slider";
 import 'rc-slider/assets/index.css';
 import "./Navbar.css";
+//
+import {Link} from "react-router-dom";
 
 class Navbar extends Component {
   constructor(props) {
@@ -43,7 +45,7 @@ class Navbar extends Component {
       <header className="Navbar">
         {/* Logo */}
         <div className="logo">
-          <a href="/">reactcolorpicker</a>
+          <Link to="/">reactcolorpicker</Link>
         </div>
         {/* Slider */}
         <div className="slider-container">
@@ -56,7 +58,7 @@ class Navbar extends Component {
               onAfterChange={changeLevel}
             />
           </div>
-          
+
         </div>
 
         {/* Selector */}

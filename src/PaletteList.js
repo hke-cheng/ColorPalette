@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
+//
+import MiniPalette from "./MiniPalette";
 
 class PaletteList extends Component {
   constructor(props) {
@@ -10,12 +12,11 @@ class PaletteList extends Component {
     const { palettes } = this.props;
     return (
       <div>
+
         <h1>React Color</h1>
-        {/* Loopover data */}
+        {/* Loopover Lists */}
         {palettes.map(palette => (
-          <p>
-            <Link to={`/palette/${palette.id}`}>{palette.paletteName}</Link>
-          </p>
+          <MiniPalette {...palette} />
         ))}
       </div>
     );

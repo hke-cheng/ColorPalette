@@ -11,7 +11,7 @@ import Slider, { Range } from "rc-slider";
 import 'rc-slider/assets/index.css';
 import "./Navbar.css";
 //
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class Navbar extends Component {
       format: "hex",
       open: false
     };
+    // 
     this.handleChange = this.handleChange.bind(this);
     this.closeSnackbar = this.closeSnackbar.bind(this);
   }
@@ -29,17 +30,17 @@ class Navbar extends Component {
   |--------------------------------------------------
   */
   handleChange(e) {
-    
-    this.setState({ format: e.target.value, open:true });
+
+    this.setState({ format: e.target.value, open: true });
     this.props.handleChange(e.target.value);
   };
 
-  closeSnackbar(){
-    this.setState({open:false});
+  closeSnackbar() {
+    this.setState({ open: false });
   }
 
   render() {
-    const { level, changeLevel, handleChange } = this.props;
+    const { level, changeLevel, handleChange,showSlider } = this.props;
     const { format } = this.state;
     return (
       <header className="Navbar">
@@ -47,19 +48,20 @@ class Navbar extends Component {
         <div className="logo">
           <Link to="/">reactcolorpicker</Link>
         </div>
-        {/* Slider */}
-        <div className="slider-container">
-          <span>Level: {level}</span>
 
-          <div className="slider">
-            <Slider
-              defaultValue={level}
-              min={100} max={900} step={100}
-              onAfterChange={changeLevel}
-            />
+        {showSlider &&
+          <div className="slider-container">
+            <span>Level: {level}</span>
+
+            <div className="slider">
+              <Slider
+                defaultValue={level}
+                min={100} max={900} step={100}
+                onAfterChange={changeLevel}
+              />
+            </div>
           </div>
-
-        </div>
+        }
 
         {/* Selector */}
         <div className="select-container">
@@ -85,13 +87,13 @@ class Navbar extends Component {
           }}
           onClose={this.closeSnackbar}
           action={[
-            <IconButton 
-            onClick={this.closeSnackbar}
-            color="inherit"
-            key="color"
-            aria-label="close"
+            <IconButton
+              onClick={this.closeSnackbar}
+              color="inherit"
+              key="color"
+              aria-label="close"
             >
-              <CloseIcon/>
+              <CloseIcon />
             </IconButton>
           ]}
         />

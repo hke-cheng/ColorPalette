@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import 'rc-slider/assets/index.css';
-import "./Palette.css";
 
-import Slider, { Range } from "rc-slider";
 import ColorBox from "./ColorBox"
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";

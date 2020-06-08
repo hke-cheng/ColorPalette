@@ -50,7 +50,7 @@ class SingleColorPalette extends Component {
 
         <div className={classes.colors}>
           {colorBoxes}
-          <div className={classes. goBack}>
+          <div className={classes.goBack}>
             <Link to={`/palette/${this.props.palette.id}`}>GO BACK</Link>
           </div>
         </div>

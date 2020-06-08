@@ -5,7 +5,9 @@ import "./Palette.css";
 import Slider, { Range } from "rc-slider";
 import ColorBox from "./ColorBox"
 import Navbar from "./Navbar";
+import PaletteFooter from "./PaletteFooter";
 import { withStyles } from "@material-ui/styles";
+
 
 
 const styles = {
@@ -79,10 +81,7 @@ class Palette extends Component {
         </div>
 
         {/*  footer eventually*/}
-        <footer className="Palette-footer">
-          {paletteName}
-          <span className="emoji">{emoji}</span>
-        </footer>
+        <PaletteFooter paletteName={paletteName} emoji={emoji}/>
       </div>
     );
   }

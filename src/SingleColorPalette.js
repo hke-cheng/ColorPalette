@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import ColorBox from "./ColorBox";
 import NavBar from "./Navbar";
 
@@ -7,8 +7,8 @@ class SingleColorPalette extends Component {
   constructor(props) {
     super(props);
     this._shades = this.gatherShades(this.props.palette, this.props.colorId);
-    this.state={ format:"hex"};
-    this.changeFormat=this.changeFormat.bind(this);
+    this.state = { format: "hex" };
+    this.changeFormat = this.changeFormat.bind(this);
   }
   //Helper Method
   gatherShades(palette, colorToFilterBy) {
@@ -29,10 +29,13 @@ class SingleColorPalette extends Component {
 
   // UI
   render() {
-  
+
     const colorBoxes = this._shades.map(color => (
-      // console.log(color)
-      <ColorBox key={color.name} name={color.name} background={color[this.state.format]} showLink={false} />
+      <ColorBox
+        key={color.name}
+        name={color.name}
+        background={color[this.state.format]}
+        showingFullPalette={false} />
     ))
     return (
       <div className="SingleColorPalette Palette">

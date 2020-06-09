@@ -8,6 +8,7 @@ import SingleColorPalette from "./SingleColorPalette";
 //
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
+import NewPaletteForm from './NewPaletteForm';
 
 function findPalette(id) {
   return seedColors.find((palette) => palette.id === id);
@@ -18,13 +19,15 @@ function App() {
 
     //Define Routes 
     <Switch>
+      <Route exact path="/palette/new" render={() => <NewPaletteForm />} />
       <Route exact path="/" render={(routeProps) => <PlatteList palettes={seedColors} {...routeProps} />} />
       <Route exact path="/palette/:id" render={(routeProps) => <Palette palette={generatePalette(
         findPalette(routeProps.match.params.id)
       )} />
       }
       />
-      
+
+
       <Route
         exact
         path="/palette/:paletteId/:colorId"

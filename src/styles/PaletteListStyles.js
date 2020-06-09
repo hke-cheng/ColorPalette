@@ -12,14 +12,18 @@ export default {
     alignItems:"flex-start",
     flexDirection:"column",
     flexWrap:"wrap",
-    border:"1px solid black"
+   
   },
   nav: {
     display:"flex",
     width:"100%",
+    alignItems:"center",
     justifyContent:"space-between",
-    border:"1px solid black",
-    color:"white"
+    color:"white",
+    "& a":{
+      color:"white",
+      textDecoration:"none"
+    }
   },
   palettes:{
     boxSizing:"border-box",

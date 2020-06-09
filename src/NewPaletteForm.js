@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
-import { ChromePicker} from 'react-color';
+import { ChromePicker } from 'react-color';
 
 
 const drawerWidth = 400;
@@ -76,8 +76,12 @@ const useStyles = makeStyles(theme => ({
 export default function NewPaletteForm() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
 
+  const [open, setOpen] = useState(false);
+  const [color, setColor] = useState("red");
+  const [colors, setColors] = useState(["purple", "#e15764"]);
+
+  // 
   function handleDrawerOpen() {
     setOpen(true);
   }
@@ -86,6 +90,11 @@ export default function NewPaletteForm() {
     setOpen(false);
   }
 
+  function addNewColor(){
+    setColors([...colors, color])
+  };
+
+  // 
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -135,14 +144,19 @@ export default function NewPaletteForm() {
         </div>
 
         <ChromePicker
-          color="purple"
-          onChangeComplete={(newColor) => console.log(newColor)}
+          color={color}
+          onChangeComplete={newColor => setColor(newColor.hex)}
         />
-  
+
 
         <Button
           variant="container"
-          color="primary">Add Color</Button>
+          color="primary"
+          style={{ backgroundColor: color }}
+          onClick={()=>addNewColor()}
+        >
+          Add Color
+        </Button>
 
       </Drawer>
 
@@ -152,6 +166,11 @@ export default function NewPaletteForm() {
         })}
       >
         <div className={classes.drawerHeader} />
+        <ul>
+          {colors.map(color => (
+            <li style={{backgroundColor:`${color}`}}>{color}</li>
+          ))}
+        </ul>
 
       </main>
     </div>

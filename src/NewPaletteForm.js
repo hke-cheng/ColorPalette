@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function NewPaletteForm() {
+export default function NewPaletteForm(props) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -88,16 +88,16 @@ export default function NewPaletteForm() {
   //
 
   useEffect(() => {
-    
-    ValidatorForm.addValidationRule("isNameUnique", (value) => 
+
+    ValidatorForm.addValidationRule("isNameUnique", (value) =>
       colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
     );
 
-    ValidatorForm.addValidationRule("isColorUnique", (value) => 
+    ValidatorForm.addValidationRule("isColorUnique", (value) =>
       colors.every(({ color }) => color !== currentColor)
     );
 
-  },[newName,currentColor]);
+  }, [newName, currentColor]);
 
   // 
   function handleDrawerOpen() {
@@ -118,13 +118,25 @@ export default function NewPaletteForm() {
   function handleChange(evt) {
     setNewName(evt.target.value);
   };
+  function handleSubmit(){
+    let newName = "New Test Palette";
+    const newPalette ={
+      paletteName:newName,
+      id:newName.toLocaleLowerCase().replace(/ /g, "-"),
+      colors:colors,
+    }
+     props.savePalette(newPalette);
+     //redirect
+     props.history.push("/")
+  }
 
-  // 
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -144,6 +156,15 @@ export default function NewPaletteForm() {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+
+          <Button
+            variant="contianed"
+            color="primary"
+            onClick={()=>handleSubmit()}
+          >
+            Save Palette
+         </Button>
+
         </Toolbar>
       </AppBar>
 
@@ -180,8 +201,8 @@ export default function NewPaletteForm() {
             label="Name"
             onChange={(evt) => handleChange(evt)}
             value={newName}
-            validators={["required","isNameUnique","isColorUnique"]}
-            errorMessages={["add name is required","Name is Taken","Color already used!"]}
+            validators={["required", "isNameUnique", "isColorUnique"]}
+            errorMessages={["add name is required", "Name is Taken", "Color already used!"]}
           />
 
           <Button

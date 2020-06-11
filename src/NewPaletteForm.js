@@ -85,6 +85,7 @@ export default function NewPaletteForm(props) {
   const [currentColor, setCurrentColor] = useState("red");
   const [colors, setColors] = useState([{ color: "blue", name: "blue" }]);
   const [newName, setNewName] = useState("");
+  const [newPaletteName, setNewPaletteName] = useState("");
   //
 
   useEffect(() => {
@@ -97,7 +98,11 @@ export default function NewPaletteForm(props) {
       colors.every(({ color }) => color !== currentColor)
     );
 
-  }, [newName, currentColor]);
+    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
+      props.palettes.every(({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase())
+    );
+
+  }, [newName, currentColor,newPaletteName]);
 
   // 
   function handleDrawerOpen() {
@@ -118,8 +123,11 @@ export default function NewPaletteForm(props) {
   function handleChange(evt) {
     setNewName(evt.target.value);
   };
+  function handleChangePaletteName(evt) {
+    setNewPaletteName(evt.target.value);
+  };
   function handleSubmit(){
-    let newName = "New Test Palette";
+    let newName = newPaletteName;
     const newPalette ={
       paletteName:newName,
       id:newName.toLocaleLowerCase().replace(/ /g, "-"),
@@ -157,13 +165,37 @@ export default function NewPaletteForm(props) {
             Persistent drawer
           </Typography>
 
+          <ValidatorForm
+          onSubmit={() => handleSubmit()}
+        >
+          <TextValidator
+            label="Palette Name"
+            onChange={(evt) => handleChangePaletteName(evt)}
+            value={newPaletteName}
+            validators={["required", "isPaletteNameUnique"]}
+            errorMessages={["Enter Palette Name", "Name is Taken"]}
+          />
+
+          <Button
+            variant="container"
+            color="primary"
+            type="submit"
+            style={{ backgroundColor: currentColor }}
+          >
+            SAVE PALETTE
+        </Button>
+
+        </ValidatorForm>
+
+
+{/* 
           <Button
             variant="contianed"
             color="primary"
             onClick={()=>handleSubmit()}
           >
             Save Palette
-         </Button>
+         </Button> */}
 
         </Toolbar>
       </AppBar>

@@ -14,7 +14,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
-import DraggableColorBox from "./DraggableColorBox";
+import DraggableColorList from "./DraggableColorList";
+import { arrayMove } from "react-sortable-hoc";
 
 
 const drawerWidth = 400;
@@ -146,6 +147,9 @@ export default function NewPaletteForm(props) {
      //redirect
      props.history.push("/")
   }
+  
+  const onSortEnd = ({oldIndex, newIndex}) => { setColors((colors) => (
+      arrayMove(colors, oldIndex, newIndex)))};
 
   //
   return (
@@ -195,15 +199,6 @@ export default function NewPaletteForm(props) {
 
         </ValidatorForm>
 
-
-{/* 
-          <Button
-            variant="contianed"
-            color="primary"
-            onClick={()=>handleSubmit()}
-          >
-            Save Palette
-         </Button> */}
 
         </Toolbar>
       </AppBar>
@@ -265,12 +260,12 @@ export default function NewPaletteForm(props) {
       >
         <div className={classes.drawerHeader} />
 
-        {colors.map(c => <DraggableColorBox
-          key={c.name}
-          color={c.color}
-          name={c.name}
-          handleClick={()=> deleteColor(c.name)}
-        />)}
+        <DraggableColorList 
+        colors={colors} 
+        deleteColor={deleteColor}
+        axis="xy" 
+        onSortEnd = {onSortEnd}
+        />
 
 
       </main>

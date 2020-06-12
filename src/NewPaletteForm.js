@@ -120,12 +120,21 @@ export default function NewPaletteForm(props) {
     }
     setColors([...colors, newColor]);
   };
+
+  function deleteColor(colorName){
+    setColors(
+      colors.filter(c=>c.name !== colorName)
+    )
+  };
+
   function handleChange(evt) {
     setNewName(evt.target.value);
   };
+
   function handleChangePaletteName(evt) {
     setNewPaletteName(evt.target.value);
   };
+
   function handleSubmit(){
     let newName = newPaletteName;
     const newPalette ={
@@ -138,7 +147,7 @@ export default function NewPaletteForm(props) {
      props.history.push("/")
   }
 
-  
+  //
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -177,10 +186,9 @@ export default function NewPaletteForm(props) {
           />
 
           <Button
-            variant="container"
+            variant="contained"
             color="primary"
             type="submit"
-            style={{ backgroundColor: currentColor }}
           >
             SAVE PALETTE
         </Button>
@@ -238,7 +246,7 @@ export default function NewPaletteForm(props) {
           />
 
           <Button
-            variant="container"
+            variant="contained"
             color="primary"
             type="submit"
             style={{ backgroundColor: currentColor }}
@@ -258,8 +266,10 @@ export default function NewPaletteForm(props) {
         <div className={classes.drawerHeader} />
 
         {colors.map(c => <DraggableColorBox
+          key={c.name}
           color={c.color}
           name={c.name}
+          handleClick={()=> deleteColor(c.name)}
         />)}
 
 

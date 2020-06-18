@@ -47,14 +47,13 @@ function PaletteFormNav(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { handleOpen, onSubmit, colors, open } = props;
+  const { handleOpen, onSubmit, palettes, open } = props;
   const [newPaletteName, setNewPaletteName] = useState("");
 
   useEffect(() => {
-
-    ValidatorForm.addValidationRule("isNameUnique", (value) =>
-      colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
-    );
+    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
+    palettes.every(({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase())
+  );
 
   }, [newPaletteName]);
 
